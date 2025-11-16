@@ -34,11 +34,35 @@ dev = [
 path = "src/{{ cookiecutter.package_name }}/__init__.py"
 
 [tool.ruff]
+# Set the maximum line length. 88 is a common standard (used by Black).
 line-length = 88
+# Set the target Python version from the cookiecutter variable.
 target-version = "py{{ cookiecutter.python_version.replace('.', '') }}"
 
 [tool.ruff.lint]
-select = ["E", "F", "W", "I", "UP", "B", "A", "C4", "T20", "SIM", "PTH"]
+# Enable all rules, then ignore a curated list.
+select = ["ALL"]
+ignore = [
+    "D100", "D101", "D102", "D103", "D104", "D105", "D107", # Missing docstrings
+    "E501", # Line-too-long (handled by the formatter)
+    "T201", # Allow `print`
+    "FIX002", # Allow `TODO`
+    "ANN101", # Don't require type hints for `self`
+]
+
+[tool.ruff.lint.isort]
+# Teach ruff about our project's source directory.
+known-first-party = ["{{ cookiecutter.package_name }}"]
+
+[tool.ruff.format]
+# Use double quotes.
+quote-style = "double"
+# Use spaces for indentation.
+indent-style = "space"
+# Use the magic trailing comma.
+skip-magic-trailing-comma = false
+# Automatically detect the appropriate line ending.
+line-ending = "auto"
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
