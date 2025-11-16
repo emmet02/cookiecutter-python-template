@@ -6,32 +6,19 @@
 
 ## 🚀 Quickstart
 
-This project is managed with `uv`.
+This project is managed with `uv`. You do not need to manually create or activate the virtual environment.
 
-### 1. Initial Setup
+### 1. Setup
 
-First, create and activate a virtual environment.
-
-```bash
-# Create the virtual environment
-uv venv
-
-# Activate the environment (macOS/Linux)
-source .venv/bin/activate
-
-# Activate the environment (Windows)
-.venv\Scripts\activate
-```
-
-### 2. Install Dependencies
-
-Sync the project dependencies using `uv`. This will install everything from `pyproject.toml` and `uv.lock`.
+Run the following command to have `uv` create a virtual environment (if it doesn't exist) and install all dependencies from `pyproject.toml`.
 
 ```bash
-uv pip sync pyproject.toml --all-extras
+uv sync
 ```
 
-### 3. Install Pre-commit Hooks
+All subsequent commands should be executed via `uv run`, which will automatically use the project's virtual environment.
+
+### 2. Install Pre-commit Hooks
 
 This template uses `prek` for fast pre-commit checks.
 
