@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
@@ -14,38 +14,40 @@ jobs:
         python-version: ["{{ cookiecutter.python_version }}"]
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5
-      with:
-        python-version: ${{ matrix.python-version }}
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
 
-    - name: Install uv
-      run: |
-        curl -LsSf https://astral.sh/uv/install.sh | sh
-        echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
 
-    - name: Configure uv cache
-      uses: actions/cache@v4
-      with:
-        path: ~/.cache/uv
-        key: ${{ runner.os }}-uv-${{ hashFiles('**/uv.lock') }}
+      - name: Install dependencies
+        run: uv sync --all-extras --dev
 
-    - name: Organise Environment with uv
-      run: uv sync
+      - name: Run checks with prek
+        run: |
+          uv tool install prek
+          uv run prek run --all-files
 
-    - name: Lint with ruff
-      run: uv run ruff check .
+      - name: Test with pytest
+        run: uv run pytest
 
-    - name: Format with ruff
-      run: uv run ruff format --check .
-
-    - name: Type check with ty
-      run: uv run ty check .
-
-    - name: Check dependencies with deptry
-      run: uv run deptry .
-
-    - name: Test with pytest
-      run: uv run pytest
+  # deploy:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Set up Python
+  #       uses: actions/setup-python@v5
+  #       with:
+  #         python-version: "3.12"
+  #     - name: Install uv
+  #       uses: astral-sh/setup-uv@v3
+  #     - name: Build
+  #       run: uv build
+  #     - name: Publish
+  #       run: echo "Publishing to PyPI..." # uv publish
