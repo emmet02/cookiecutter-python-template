@@ -66,6 +66,7 @@ line-ending = "auto"
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]
+testpaths = ["tests"]
 
 [tool.deptry]
 ignore_missing = []
