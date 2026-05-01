@@ -6,7 +6,7 @@ on:
 
 jobs:
   release:
-    uses: emmet02/.github/.github/workflows/release-please.yml@main
+    uses: emmet02/.github/workflows/release-please.yml@fix-structure
     with:
       release_type: python
     secrets: inherit
