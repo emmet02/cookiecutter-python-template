@@ -2,10 +2,10 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   pull_request:
 
 jobs:
   validation:
-    uses: emmet02/.github/workflows/ci.yml@fix-structure
+    uses: emmet02/.github/.github/workflows/ci.yml@main
     secrets: inherit

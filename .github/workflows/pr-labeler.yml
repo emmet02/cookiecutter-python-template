@@ -2,9 +2,9 @@ name: Auto Label PRs
 
 on:
   pull_request_target:
-    types: [opened, edited, synchronize]
+    types: [ opened, edited, synchronize ]
 
 jobs:
   labeler:
-    uses: emmet02/.github/workflows/pr-labeler.yml@fix-structure
+    uses: emmet02/.github/.github/workflows/pr-labeler.yml@main
     secrets: inherit
