@@ -7,5 +7,5 @@ on:
 
 jobs:
   validation:
-    uses: emmet02/.github/.github/workflows/ci.yml@main
+    uses: emmet02/.github/workflows/ci.yml@fix-structure
     secrets: inherit

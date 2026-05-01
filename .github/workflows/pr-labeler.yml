@@ -6,5 +6,5 @@ on:
 
 jobs:
   labeler:
-    uses: emmet02/.github/.github/workflows/pr-labeler.yml@main
+    uses: emmet02/.github/workflows/pr-labeler.yml@fix-structure
     secrets: inherit
